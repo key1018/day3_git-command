@@ -1131,7 +1131,71 @@ Fast-forward
  f1.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
-
-
 </div>
 </details>
+  
+<details>
+<summary><h2>Git 기본명령어</h2></summary>
+<div markdown="1">
+  
+## 브랜치 전략
+➡️ 브랜치 전략이란 여러 개발자가 하나의 저장소를 사용하는 환경에서 저장소를 효과적으로 활용하기 위한 work-flow다. <br>
+브랜치의 생성, 삭제, 병합 등 git의 유연한 구조를 활용해서, 각 개발자들의 혼란을 최대한 줄이며 다양한 방식으로 소스를 관리하는 역할을 한다. <br>
+즉, 브랜치 생성에 규칙을 만들어서 협업을 유연하게 하는 방법론을 말한다. <br>
+ 
+```
+✅ rainbow 브랜치 생성
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git switch -c rainbow
+Switched to a new branch 'rainbow'
+
+→ red 파일 추가 후 커밋
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (rainbow)
+$ touch red
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (rainbow)
+$ echo "red" >> red
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (rainbow)
+$ git add -A
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (rainbow)
+$ git commit -m "red"
+[rainbow 0e10831] red
+ 4 files changed, 4 insertions(+), 1 deletion(-)
+ create mode 160000 git_home
+ create mode 160000 git_office
+ create mode 100644 red
+
+✅ 깃에 push하기
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (rainbow)
+$ git push origin rainbow
+Enumerating objects: 45, done.
+Counting objects: 100% (45/45), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (31/31), done.
+Writing objects: 100% (45/45), 3.61 KiB | 923.00 KiB/s, done.
+Total 45 (delta 13), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (13/13), done.
+remote:
+remote: Create a pull request for 'rainbow' on GitHub by visiting:
+remote:      https://github.com/key1018/sample/pull/new/rainbow
+remote:
+To https://github.com/key1018/sample.git
+ * [new branch]      rainbow -> rainbow
+
+```
+  
+→ push 후 화면 <br>
+![image](https://user-images.githubusercontent.com/103404357/205498896-9d443a1e-0114-4a2e-8194-bb374ef6598e.png) <br>
+  
+→ Compare & pull 버튼 생성 <br>
+![image](https://user-images.githubusercontent.com/103404357/205498929-81c4ec5a-bb76-4d15-9900-2f985c0f9864.png) <br>
+  
+</div>
+</details>
+
+
+  
+  
