@@ -1135,7 +1135,7 @@ Fast-forward
 </details>
   
 <details>
-<summary><h2>Git 기본명령어</h2></summary>
+<summary><h2>GitHub Flow</h2></summary>
 <div markdown="1">
   
 ## 브랜치 전략
