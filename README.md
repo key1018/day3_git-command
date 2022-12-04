@@ -446,3 +446,451 @@ Date:   Sun Dec 4 02:58:01 2022 +0900
 
 </div>
 </details>
+  
+<details>
+<summary><h2>Git Branch</h2></summary>
+<div markdown="1">
+
+# branch란?
+➡️ 동시에 다양한 작업을 할 수 있게 만들어 주는 기능으로 각자 독립적인 작업 영역(저장소) 안에서 마음대로 소스코드를 변경할 수 있다. <br>
+브래치는 독립적으로 어떤 작업을 진행하기 위한 개념으로, 필요에 의해 만들어지는 각각의 브랜치는 다른 브랜치의 영향을 받지 않기 때문에 여러 작업을 동시에 진행할 수 있게 된다.
+  
+## git branch / swich -c|-C (브랜치 생성)
+```
+사용 구문1 : $ git branch <브랜치이름>
+사용 구문2 : $ git switch (-c|-C) <브랜치이름>
+  
+✅ 사용 구문1
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git branch newbranch1
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git branch
+* master    
+  newbranch1    → 새로 생성된 브랜치
+
+✅ 사용 구문2
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git switch -c newbranch2
+Switched to a new branch 'newbranch2'
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch2)
+$ git branch
+  master
+  newbranch1
+* newbranch2    → 브랜치를 생성하면서 이동
+```
+  
+## git chechout / switch (브랜치 변경)
+```
+사용 구문1 : $ git branch <브랜치이름>
+사용 구문2 : $ git switch (-c|-C) <브랜치이름>
+  
+✅ 사용 구문1
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git checkout newbranch1
+Switched to branch 'newbranch1'
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+→ newbranch1로 이동
+  
+✅ 사용 구문2
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ git switch newbranch2
+Switched to branch 'newbranch2'
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch2)
+→ newbranch2로 이동
+ 
+💡 branch를 생성하면 생성된 브랜치는 현재 내가 속해있는 브랜치의 상태를 그대로 복사한 후 생성된다.
+```
+  
+## git update (브랜치 수정)
+```
+✅ newbranch2에서 파일 수정 후 커밋
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch2)
+$ vim f1.txt
+
+→ 파일 수정
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch2)
+$ git status
+On branch newbranch2
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   f1.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+→ 버전 관리 권한 생성
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch2)
+$ git add f1.txt
+
+→ 커밋 
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch2)
+$ git commit -m v3
+
+✅ newbranch2 log 확인
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch2)
+$ git log
+commit 35c004674486a956b484f56ea506a5f7bf888984 (HEAD -> newbranch2)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 19:55:06 2022 +0900
+
+    v3      → 새로운 커밋 생성
+
+commit 8b47153c2f281530ef239c278ad8dde800275ecb (newbranch1, master)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:58:01 2022 +0900
+
+    v2
+
+commit 238e3548d9f81faab53475560458090b0467c96e
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:54:44 2022 +0900
+
+    2
+
+commit 6cbe8fe207615fb070fc429d5c61de3b98a458e6
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:40:57 2022 +0900
+
+    1
+  
+✅ newbranch1 log 확인
+→ 새로운 커밋 생성 x
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ git log
+commit 8b47153c2f281530ef239c278ad8dde800275ecb (HEAD -> newbranch1, master)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:58:01 2022 +0900
+
+    v2
+
+commit 238e3548d9f81faab53475560458090b0467c96e
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:54:44 2022 +0900
+
+    2
+
+commit 6cbe8fe207615fb070fc429d5c61de3b98a458e6
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:40:57 2022 +0900
+
+    1
+
+💡 어느 브랜치에 속해있냐에 따라서 내용이 와전히 달라진다!
+```
+
+## git merge (브랜치 병합)
+  
+```
+# 지정한 branch의 commit들을 -> 현재 branch 및 워킹 트리에 반영
+# <브랜치이름>에 merge하는게 아닌, 현재 브랜치 이곳에 <브랜치이름>을 merge하는 것이다. 
+  
+사용 구문 : git merge <브랜치이름>
+  
+→ newbranch2의 내용을 newbranch1로 옮기기
+
+✅ newbranch1에서 합병하기 때문에 해당 브래치로 이동
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch2)
+$ git switch newbranch1
+Switched to branch 'newbranch1'
+  
+✅ 합병
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ git merge newbranch2
+Updating 8b47153..35c0046
+Fast-forward
+ f1.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+✅ newbranch1의 log확인
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ git log
+commit 35c004674486a956b484f56ea506a5f7bf888984 (HEAD -> newbranch1, newbranch2)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 19:55:06 2022 +0900
+
+    v3
+
+commit 8b47153c2f281530ef239c278ad8dde800275ecb (master)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:58:01 2022 +0900
+
+    v2
+
+commit 238e3548d9f81faab53475560458090b0467c96e
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:54:44 2022 +0900
+
+    2
+
+commit 6cbe8fe207615fb070fc429d5c61de3b98a458e6
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:40:57 2022 +0900
+
+    1
+
+```
+
+## git branch -d (브랜치 삭제)
+```
+사용 구문 : git branch -d 삭제할 브랜치명  
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ git branch -d newbranch2
+Deleted branch newbranch2 (was 35c0046).
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ git branch
+  master
+* newbranch1
+```
+  
+## conflict 충돌 해결
+  
+### 1. 다른 이름의 파일인 경우
+```
+✅ master에서 새로운 수정 사항 생성
+
+→ master.txt 파일 생성
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ vim master.txt
+
+→ 버전 관리 실행 후 커밋
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git add master.txt
+warning: in the working copy of 'master.txt', LF will be replaced by CRLF the next time Git touches it
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git commit -m v5
+[master aeeb96a] v5
+ 1 file changed, 1 insertion(+)
+ create mode 100644 master.txt
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git log
+commit aeeb96ab5b45e078f7bf54233d9d683e00783092 (HEAD -> master)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 20:43:13 2022 +0900
+
+    v5
+
+commit 8b47153c2f281530ef239c278ad8dde800275ecb
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:58:01 2022 +0900
+
+    v2
+
+commit 238e3548d9f81faab53475560458090b0467c96e
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:54:44 2022 +0900
+
+    2
+
+commit 6cbe8fe207615fb070fc429d5c61de3b98a458e6
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:40:57 2022 +0900
+
+    1
+
+  
+✅ newbranch1에서 새로운 수정 사항 생성
+  
+→ exp.txt 파일 생성
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ vim exp.txt
+
+→ 버전 관리 실행 후 커밋
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ git add exp.txt
+warning: in the working copy of 'exp.txt', LF will be replaced by CRLF the next time Git touches it
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ git commit -m exp_test
+[newbranch1 8b549b8] exp_test
+ 1 file changed, 1 insertion(+)
+ create mode 100644 exp.txt
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ git log
+commit 8b549b8815410fd924ab355fc09fb025348a16b2 (HEAD -> newbranch1)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 20:44:55 2022 +0900
+
+    exp_test
+
+commit 35c004674486a956b484f56ea506a5f7bf888984
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 19:55:06 2022 +0900
+
+    v3
+
+commit 8b47153c2f281530ef239c278ad8dde800275ecb
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:58:01 2022 +0900
+
+    v2
+
+commit 238e3548d9f81faab53475560458090b0467c96e
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:54:44 2022 +0900
+
+    2
+
+commit 6cbe8fe207615fb070fc429d5c61de3b98a458e6
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:40:57 2022 +0900
+
+    1
+
+✅ amster와 newbranch1의 log 비교
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git log --branches
+commit 8b549b8815410fd924ab355fc09fb025348a16b2 (newbranch1)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 20:44:55 2022 +0900
+
+    exp_test        → newbranch1에서 커밋
+  
+commit aeeb96ab5b45e078f7bf54233d9d683e00783092 (HEAD -> master)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 20:43:13 2022 +0900
+
+    v5              → master에서 커밋
+
+commit 35c004674486a956b484f56ea506a5f7bf888984
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 19:55:06 2022 +0900
+
+    v3
+
+commit 8b47153c2f281530ef239c278ad8dde800275ecb
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:58:01 2022 +0900
+
+    v2
+
+commit 238e3548d9f81faab53475560458090b0467c96e
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:54:44 2022 +0900
+
+    2
+
+commit 6cbe8fe207615fb070fc429d5c61de3b98a458e6
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 02:40:57 2022 +0900
+
+    1 
+
+✅ 합병
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git merge newbranch1
+```
+→ 충돌 발생 <br>  
+![image](https://user-images.githubusercontent.com/103404357/205488880-fa10450d-6afe-4143-ba74-6cb7082d703a.png) <br>
+  
+→ 합병 완료 <br>
+왜? 파일이 다르면 자동으로 합병됨 <br>
+![image](https://user-images.githubusercontent.com/103404357/205489039-ab763be3-b95a-4fd4-bd70-86b5a331c6ca.png) <br>
+  
+→ master에 exp.txt 생성 완료 <br>
+![image](https://user-images.githubusercontent.com/103404357/205489069-38fb8055-20c2-49a4-a5e7-ce2312831c02.png) <br>
+
+### 2. 같은 이름의 파일인 경우
+```
+  
+✅ master에서 common.txt파일 수정
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ cat common.txt
+function a() {
+
+}
+
+function b() {        → newbranch1과 다름
+
+}
+
+
+✅ newbranch1에서 common.txt파일 수정
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (newbranch1)
+$ cat common.txt
+function a() {
+
+}
+function c() {        → master과 다름
+
+}
+
+ 
+✅ 합병
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git merge newbranch1
+
+✅ 충돌 발생
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git merge newbranch1
+Auto-merging common.txt
+CONFLICT (content): Merge conflict in common.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master|MERGING)
+$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both modified:   common.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```  
+→ 오류 발생 <br>
+![image](https://user-images.githubusercontent.com/103404357/205489738-f2242067-4e48-4309-8f80-e61f540b663c.png) <br>
+
+```
+✅ 수정
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master|MERGING)
+$ git add common.txt
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master|MERGING)
+$ git status
+On branch master
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+        modified:   common.txt
+```
+→ 오류 수정 후 <br>
+![image](https://user-images.githubusercontent.com/103404357/205489929-48ba57d1-63a3-4196-b33d-ba502cd80866.png) <br>
+  
+```
+✅ 완전히 합병된 것을 확인
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ cat common.txt
+function a() {
+
+}
+function b() {
+
+}
+function c() {
+
+}
+
+```
+
+  
+</div>
+</details>
