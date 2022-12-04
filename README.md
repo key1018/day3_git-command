@@ -891,6 +891,247 @@ function c() {
 
 ```
 
+</div>
+</details>
+
+<details>
+<summary><h2>Git 원격저장소</h2></summary>
+<div markdown="1">
   
+## 저장소 생성하기
+![image](https://user-images.githubusercontent.com/103404357/205493851-d0da6357-82a7-41c2-a93c-5a2cd1dcb79d.png) <br>
+  
+## git remote (Remote Repository 연결)
+➡️ git remote 명령으로 현재 프로젝트에 등록된 리모트 저장소를 확인할 수 있다. <br>
+이 명령은 리모트 저장소의 단축 이름을 지어준다. <br>
+URL은 제일 상단 부에서 확인 가능하고, 클립보드에 복사하도록 제공 하기도 한다. <br>
+  
+![image](https://user-images.githubusercontent.com/103404357/205493866-d82e12dc-ee37-4c15-b0f3-1d8490c3840b.png) <br>
+→ 해당 주소는 레파지토리의 고유 주소이다. <br>
+ 
+```
+사용 구문 : $ git remote add origin URL주소
+# git remote add <remote repo 이름> <repo url>
+# https://github.com/깃헙계정/리포지터리명.git 
+# url를 origin이라고 이름을 붙여 추가하겠다는 의미
+ 
+# url가져오기
+$ git remote get-url origin
+
+✅ 현재 원격저장소에 연결시킨다.
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/local (master)
+$ git remote add origin https://github.com/key1018/sample.git
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/local (master)
+$ git remote
+origin    → 원격저장소의 이름 (주로 메인이 되는 저장소) 
+
+💡 옵션
+# 옵션 종류 보기
+$ git remote --help
+ 
+# 추가한 원격저장소의 목록 확인 
+$ git remote
+$ git remote -v # 상세히
+ 
+# 특정 원격 저장소의 정보를 확인할 수 있다.
+$ git remote show 이름
+ 
+# 원격저장소 이름 변경
+$ git remote rename 기존이름 변경할이름
+ 
+# 원격저장소를 제거
+$ git remote rm 이름
+  
+💡 깃은 여러개의 저장소를 로컬저장소에 저장할 수 있다.
+```
+  
+## git push (원격 저장소 저장)
+➡️ 현재 branch에서 새로 생성한 commit들을 원격 저장소에 업로드 <br>
+로컬 컴퓨터에서 작업하고 커밋을 깃허브에서 온라인으로도 볼 수 있다. 
+  
+```
+사용 구문 : $ git push -u origin master
+# origin : 원격주소 / master : 브랜치
+# 영어문법 4형식 -> origin에 master를 push하라
+
+✅ 처음으로 원격 저장소로 업로드
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/local (master)
+$ git push -u origin master       → 업로드하는 명령어
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 202 bytes | 202.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/key1018/sample.git
+ * [new branch]      master -> master
+branch 'master' set up to track 'origin/master'.
+```
+
+→ 업도르된 사진 <br>
+![image](https://user-images.githubusercontent.com/103404357/205494563-5a437aa9-5b63-4251-a6ef-a3eac0999453.png) <br>
+
+```
+✅ 두 번째 업로드 실행
+  
+→ 깃 수정
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/local (master)
+$ vim f1.txt
+
+→ 버전 관리 권한 생성 및 커밋
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/local (master)
+$ git commit -am 2
+warning: in the working copy of 'f1.txt', LF will be replaced by CRLF the next time Git touches it
+[master ed022c2] 2
+ 1 file changed, 2 insertions(+)
+
+→ 바로 push 입력  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/local (master)
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Writing objects: 100% (3/3), 234 bytes | 234.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/key1018/sample.git
+   79371dd..ed022c2  master -> master
+
+💡 바로 push가 가능하다!
+```
+→ 업로드된 사진 <br>
+![image](https://user-images.githubusercontent.com/103404357/205495702-c9e05be8-5cab-4522-ab6c-4ad0328843bf.png) <br>
+
+## git clone (원격 저장소 복제)
+➡️ 원격 저장소의 저장소를 내 local에서 이용할 수 있게 그대로 똑같이 복사해 가져온다. <br>
+사용 구문 : $ git clone 레파지토리 주소 <br> <br>
+  
+✅ 주소 복사 <br>
+![image](https://user-images.githubusercontent.com/103404357/205495948-332c3b2e-7b93-4b27-be67-44b40f44766f.png) <br>
+
+```
+✅ 깃 clone
+. : 현재 디렉토리 라는 의미
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/gitt (master)
+$ git clone https://github.com/key1018/sample.git .
+Cloning into '.'...
+remote: Enumerating objects: 6, done.
+remote: Counting objects: 100% (6/6), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 6 (delta 0), reused 6 (delta 0), pack-reused 0
+Receiving objects: 100% (6/6), done.
+
+✅ 깃 clone 된 것을 확인
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/gitt (master)
+$ ls -al
+total 9
+drwxr-xr-x 1 dski2 197609 0 Dec  4 23:23 ./
+drwxr-xr-x 1 dski2 197609 0 Dec  4 23:22 ../
+drwxr-xr-x 1 dski2 197609 0 Dec  4 23:23 .git/
+-rw-r--r-- 1 dski2 197609 8 Dec  4 23:23 f1.txt
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/gitt (master)
+$ git remote -v
+origin  https://github.com/key1018/sample.git (fetch)
+origin  https://github.com/key1018/sample.git (push)
+
+```
+  
+## git pull (원격 저장소 내용 가져오기)
+➡️ 원격 저장소에서 파일 내려받기 <br>
+git pull = git fetch + git merge : 원격저장소 커밋과 동기화하고 커밋을 머지 시킨다. <br>
+원격 저장소와 로컬 저장소의 상태를 같게 만들기 위해 원격 저장소의 소스를 가져오는 것이다. <br>
+즉, 다른 사람들의 작업 변경사항을 클라이언트로 내려받기 한다고 보면 된다. <br>
+```
+# 원격 저장소의 변경사항을 워킹 트리에 반영
+# git pull <remote> <branch>
+사용 구문 : $ git pull origin master
+  
+✅ 깃 clone 반영(git_home, git_office 각각 따로 만들기)
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git clone https://github.com/key1018/sample.git git_home    → git_home
+Cloning into 'git_home'...
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 9 (delta 0), reused 9 (delta 0), pack-reused 0
+Receiving objects: 100% (9/9), done.
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample (master)
+$ git clone https://github.com/key1018/sample.git git_office    → git_office
+Cloning into 'git_office'...
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 9 (delta 0), reused 9 (delta 0), pack-reused 0
+Receiving objects: 100% (9/9), done.
+
+
+✅ git_home에서 수정 후 push
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/git_home (master)
+$ vim f1.txt
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/git_home (master)
+$ git commit -am 3
+[master 4a79cdb] 3
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/git_home (master)
+$ git log
+commit 4a79cdb677519a88101c87522dd06055c7083444 (HEAD -> master)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 23:42:05 2022 +0900
+
+    3      → 새로 push한 사항
+
+commit 708b033e4c9ea1f3fdd882eb3d1128474f8ed1a2 (origin/master, origin/HEAD)
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 23:34:27 2022 +0900
+
+    add red
+
+commit ed022c27893fb50e50ee39b1194c852bfded8030
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 23:15:20 2022 +0900
+
+    2
+
+commit 79371dd9f46df0de79082bfddbae0d468ed01b6e
+Author: eunyoung <dski2335@gmail.com>
+Date:   Sun Dec 4 22:27:12 2022 +0900
+
+    1
+
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/git_home (master)
+$ git push
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 264 bytes | 264.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/key1018/sample.git
+   708b033..4a79cdb  master -> master
+  
+✅ git_office에서 push하기
+  
+dski2@BOOK-6MKSS57FS2 MINGW64 ~/sample/git_office (master)
+$ git pull
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 3 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 244 bytes | 16.00 KiB/s, done.
+From https://github.com/key1018/sample
+   708b033..4a79cdb  master     -> origin/master
+Updating 708b033..4a79cdb
+Fast-forward
+ f1.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+```
+
+
 </div>
 </details>
